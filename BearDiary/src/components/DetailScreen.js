@@ -1,14 +1,80 @@
-import * as React from 'react';
-import { Button, View, Text } from 'react-native';
+//import * as React from 'react';
+import React, {useState, createRef} from 'react';
+import { StyleSheet, Button, View, Text, TextInput} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 function DetailScreen({ navigation }) {
+  const [userId, setUserId] = useState('')
+  const [userPw, setUserPw] = useState('')
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Detail Screen</Text>
+     <View style={styles.mainBody}>
+      <Text style={styles.loginTextStyle}>로그인</Text>
+      <View style={styles.SectionStyle}>
+      <TextInput
+         style = {styles.inputStyle}
+         onChangeText={(userId) => setUserId(userId)}
+         placeholder="Enter ID" //ID
+         autoCapitalize="none"
+         returnKeyType="next"
+      />
+      </View>
+      <View style={styles.SectionStyle}>
+      <TextInput
+          style = {styles.inputStyle}
+          onChangeText={(userPw) => setUserId(userPw)}
+          placeholder="Enter Password" //PWD
+      />
+      </View>
+      <Text
+          style={styles.joinTextStyle}
+          onPress={() => navigation.navigate('Home')} // 회원가입 화면으로 이동, 나중에 경로 수정 예정
+      >회원가입</Text>
+      <Button
+          title="Login"
+          color='#000000'
+          onPress={() => navigation.navigate('Home')} // 로그인 후 화면으로 이동, 나중에 경로 수정 예정
+      />
     </View>
   );
 }
 
 export default DetailScreen;
+
+const styles = StyleSheet.create({
+  mainBody: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#FFF',
+    alignItems: 'center' ,
+  },
+  SectionStyle: {
+    flexDirection: 'row',
+    height: 40,
+    marginTop: 20,
+    marginLeft: 35,
+    marginRight: 35,
+    margin: 10,
+  },
+  inputStyle: {
+      flex: 1,
+      color: 'black',
+      paddingLeft: 30,
+      paddingRight: 30,
+      borderWidth: 1,
+      borderRadius: 30,
+      borderColor: '#dadae8',
+  },
+  loginTextStyle: {
+    color: '#000000',
+    paddingVertical: 10,
+    fontSize: 20,
+  },
+  joinTextStyle: {
+      color: '#c7c7c7',
+      marginLeft: 190,
+      marginBottom: 15,
+      paddingVertical: 10,
+      fontSize: 15,
+    },
+});
