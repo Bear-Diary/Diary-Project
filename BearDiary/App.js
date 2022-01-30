@@ -12,7 +12,7 @@ import { createNativeStackNavigator} from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 
 import Home from './src/components/HomeScreen';
-import Details from './src/components/DetailScreen';
+import Login from './src/components/LoginScreen';
 import DBTest from './src/components/DBTestScreen';
 import SignUp from './src/components/SignUpScreen';
 import Login from './src/components/LoginScreen';
@@ -23,7 +23,7 @@ render() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Details" component={Details} />
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="DBTest" component={DBTest} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Login" component={Login} />

@@ -10,6 +10,7 @@ function LoginScreen({ navigation }) {
   return (
      <View style={styles.mainBody}>
       <Text style={styles.loginTextStyle}>LOGIN</Text>
+      <Text style={styles.loginTextStyle}>로그인</Text>
       <View style={styles.SectionStyle}>
       <TextInput
          style = {styles.inputStyle}
@@ -28,6 +29,14 @@ function LoginScreen({ navigation }) {
       </View>
       <Button style={styles.buttonStyle}
               title="Login"
+      <Text
+          style={styles.joinTextStyle}
+          onPress={() => navigation.navigate('Home')} // 회원가입 화면으로 이동, 나중에 경로 수정 예정
+      >회원가입</Text>
+      <Button
+          title="Login"
+          color='#000000'
+          onPress={() => navigation.navigate('Home')} // 로그인 후 화면으로 이동, 나중에 경로 수정 예정
       />
     </View>
   );
@@ -85,4 +94,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     fontSize: 20,
   },
+  joinTextStyle: {
+      color: '#c7c7c7',
+      marginLeft: 190,
+      marginBottom: 15,
+      paddingVertical: 10,
+      fontSize: 15,
+    },
 });

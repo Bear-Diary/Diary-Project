@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "757371665080",
+    "project_id": "beardiaryapp",
+    "storage_bucket": "beardiaryapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757371665080:android:1079ae16f6a17cd7c8524d",
+        "android_client_info": {
+          "package_name": "com.beardiary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "757371665080-od5evma6lus5g5jjsguumao08230ge48.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZpjKW6i7Ohe9gQYnzm0yxqqDDr4doXVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "757371665080-od5evma6lus5g5jjsguumao08230ge48.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
