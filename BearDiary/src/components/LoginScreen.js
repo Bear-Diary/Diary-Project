@@ -27,8 +27,6 @@ function LoginScreen({ navigation }) {
           placeholder="Enter Password" //PWD
       />
       </View>
-      <Button style={styles.buttonStyle}
-              title="Login"
       <Text
           style={styles.joinTextStyle}
           onPress={() => navigation.navigate('Home')} // 회원가입 화면으로 이동, 나중에 경로 수정 예정
