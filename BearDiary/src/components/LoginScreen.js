@@ -4,7 +4,7 @@ import { StyleSheet, Button, View, Text, TextInput} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-function DetailScreen({ navigation }) {
+function LoginScreen({ navigation }) {
   const [userId, setUserId] = useState('')
   const [userPw, setUserPw] = useState('')
   return (
@@ -39,7 +39,7 @@ function DetailScreen({ navigation }) {
   );
 }
 
-export default DetailScreen;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   mainBody: {
