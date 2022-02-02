@@ -14,6 +14,7 @@ const Stack = createNativeStackNavigator();
 import Home from './src/components/HomeScreen';
 import Login from './src/components/LoginScreen';
 import DBTest from './src/components/DBTestScreen';
+import SignUp from './src/components/SignUpScreen';
 
 class App extends React.Component {
 render() {
@@ -23,6 +24,7 @@ render() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="DBTest" component={DBTest} />
+        <Stack.Screen name="SignUp" component={SignUp} />
       </Stack.Navigator>
     </NavigationContainer>
   );

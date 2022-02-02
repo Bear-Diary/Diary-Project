@@ -9,6 +9,7 @@ function LoginScreen({ navigation }) {
   const [userPw, setUserPw] = useState('')
   return (
      <View style={styles.mainBody}>
+      <Text style={styles.loginTextStyle}>LOGIN</Text>
       <Text style={styles.loginTextStyle}>로그인</Text>
       <View style={styles.SectionStyle}>
       <TextInput
@@ -56,6 +57,11 @@ const styles = StyleSheet.create({
     marginRight: 35,
     margin: 10,
   },
+  LoginText: {
+    backgroundColor: '#FFF',
+    height: 40,
+    borderWidth: 40,
+  },
   inputStyle: {
       flex: 1,
       color: 'black',
@@ -64,6 +70,22 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderRadius: 30,
       borderColor: '#dadae8',
+  },
+  MarginStyle: {
+      margin: 5,
+  },
+  buttonStyle: {
+    backgroundColor: '#FFF',
+    borderWidth: 0,
+    color: '#FFFFFF',
+    borderColor: '#7DE24E',
+    height: 40,
+    alignItems: 'center',
+    borderRadius: 30,
+    marginLeft: 35,
+    marginRight: 35,
+    marginTop: 20,
+    marginBottom: 25,
   },
   loginTextStyle: {
     color: '#000000',
