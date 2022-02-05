@@ -15,6 +15,7 @@ import Home from './src/components/HomeScreen';
 import Login from './src/components/LoginScreen';
 import DBTest from './src/components/DBTestScreen';
 import SignUp from './src/components/SignUpScreen';
+import Main from './src/components/MainScreen';
 
 class App extends React.Component {
 render() {
@@ -25,6 +26,7 @@ render() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="DBTest" component={DBTest} />
         <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="Main" component={Main} />
       </Stack.Navigator>
     </NavigationContainer>
   );
