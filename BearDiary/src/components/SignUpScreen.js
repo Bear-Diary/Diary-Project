@@ -3,6 +3,8 @@ import React, {useState, createRef} from 'react';
 //import { Button, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import firestore from '@react-native-firebase/firestore';
+import { RadioButton } from 'react-native-paper';
 
 import {
   StyleSheet,
@@ -22,14 +24,35 @@ function SignUpScreen({ navigation }) {
   const [userEmail, setUserEmail] = useState('');
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('')
-  const [userPwChk, setuserPwChk] = useState('');
+  const [userPwChk, setUserPwChk] = useState('');
+  const [userSex, setUserSex] = useState('');
+
+  const ref = firestore().collection('user');
+
+  function test() {
+    console.log(userSex);
+    console.log(userEmail);
+    console.log(userId);
+    console.log(userName);
+    console.log(userPw);
+    console.log(userPwChk);
+  }
+  async function signUp() {
+     await ref.add({
+        userEmail: userEmail,
+        userId: userId,
+        userName: userName,
+        userPw: userPw,
+        userSex: userSex
+     });
+  }
   return (
     <View style={styles.mainBody}>
           <Text style={styles.titleTextStyle}>SIGN UP</Text>
           <View style={styles.SectionStyle}>
             <TextInput
                 style = {styles.inputStyle}
-                onChangeText={(userName) => setUserId(userName)}
+                onChangeText={(userName) => setUserName(userName)}
                 placeholder="Name" //Name
                 autoCapitalize="none"
                 returnKeyType="next"
@@ -38,7 +61,7 @@ function SignUpScreen({ navigation }) {
           <View style={styles.SectionStyle}>
             <TextInput
                 style = {styles.inputStyle}
-                onChangeText={(userEmail) => setUserId(userEmail)}
+                onChangeText={(userEmail) => setUserEmail(userEmail)}
                 placeholder="E-mail" //E-mail
                 autoCapitalize="none"
                 returnKeyType="next"
@@ -56,21 +79,34 @@ function SignUpScreen({ navigation }) {
           <View style={styles.SectionStyle}>
             <TextInput
                 style = {styles.inputStyle}
-                onChangeText={(userPw) => setUserId(userPw)}
+                onChangeText={(userPw) => setUserPw(userPw)}
                 placeholder="Password" //PWD
             />
           </View>
           <View style={styles.SectionStyle}>
             <TextInput
                 style = {styles.inputStyle}
-                onChangeText={(userPwChk) => setUserId(userPwChk)}
+                onChangeText={(userPwChk) => setUserPwChk(userPwChk)}
                 placeholder="Confirm Password" //PWD Check
             />
           </View>
+          <View style={styles.SectionStyle}>
+             <RadioButton
+               value="male"
+               status={ userSex === 'male' ? 'checked' : 'unchecked' }
+               onPress={() => setUserSex('male')}
+             /><Text>male</Text>
+             <RadioButton
+               value="female"
+               status={ userSex === 'female' ? 'checked' : 'unchecked' }
+               onPress={() => setUserSex('female')}
+             /><Text>female</Text>
+           </View>
           <View style={styles.MarginStyle}>
           </View>
           <Button style={styles.buttonStyle}
                 title="Sign Up"
+                onPress={() => signUp()}
           />
     </View>
   );
