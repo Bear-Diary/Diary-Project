@@ -24,6 +24,7 @@ function DetailScreen({ navigation }) {
           style = {styles.inputStyle}
           onChangeText={(userPw) => setUserId(userPw)}
           placeholder="Enter Password" //PWD
+          secureTextEntry={true}
       />
       </View>
       <Text

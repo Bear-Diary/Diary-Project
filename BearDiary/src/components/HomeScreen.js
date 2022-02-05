@@ -15,6 +15,10 @@ function HomeScreen({ navigation }) {
         title="Go to DBTest"
         onPress={() => navigation.navigate('DBTest')} // Details로 화면 이동
       />
+      <Button
+        title="Go to Main"
+        onPress={() => navigation.navigate('Main')} // Details로 화면 이동
+      />
     </View>
   );
 }
