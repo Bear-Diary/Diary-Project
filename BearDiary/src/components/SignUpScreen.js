@@ -17,6 +17,7 @@ import {
   Keyboard,
   Modal,
   ScrollView,
+  Alert
 } from 'react-native';
 
 function SignUpScreen({ navigation }) {
@@ -26,25 +27,31 @@ function SignUpScreen({ navigation }) {
   const [userPw, setUserPw] = useState('')
   const [userPwChk, setUserPwChk] = useState('');
   const [userSex, setUserSex] = useState('');
-
+  const [userBD, setUserBD] = useState('');
   const ref = firestore().collection('user');
 
   function test() {
-    console.log(userSex);
-    console.log(userEmail);
-    console.log(userId);
-    console.log(userName);
-    console.log(userPw);
-    console.log(userPwChk);
+    console.log(new Date());
   }
   async function signUp() {
-     await ref.add({
-        userEmail: userEmail,
-        userId: userId,
-        userName: userName,
-        userPw: userPw,
-        userSex: userSex
-     });
+    if(userPw.length < 8) {
+        Alert.alert("비밀번호를 8자리 이상으로 설정해주세요.");
+    }
+    else if(userPw !== userPwChk) {
+        Alert.alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+    }
+    else {
+         await ref.add({
+            userEmail: userEmail,
+            userId: userId,
+            userName: userName,
+            userPw: userPw,
+            userSex: userSex,
+            userBD: userBD
+         });
+         Alert.alert("회원가입이 정상적으로 처리되었습니다.");
+         navigation.navigate('Home');
+     }
   }
   return (
     <View style={styles.mainBody}>
@@ -81,6 +88,7 @@ function SignUpScreen({ navigation }) {
                 style = {styles.inputStyle}
                 onChangeText={(userPw) => setUserPw(userPw)}
                 placeholder="Password" //PWD
+                secureTextEntry={true}
             />
           </View>
           <View style={styles.SectionStyle}>
@@ -88,8 +96,16 @@ function SignUpScreen({ navigation }) {
                 style = {styles.inputStyle}
                 onChangeText={(userPwChk) => setUserPwChk(userPwChk)}
                 placeholder="Confirm Password" //PWD Check
+                secureTextEntry={true}
             />
           </View>
+          <View style={styles.SectionStyle}>
+              <TextInput
+                  style = {styles.inputStyle}
+                  onChangeText={(userBD) => setUserBD(userBD)}
+                  placeholder="Birth Date(EX 19990101)" //PWD Check
+              />
+            </View>
           <View style={styles.SectionStyle}>
              <RadioButton
                value="male"

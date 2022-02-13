@@ -37,28 +37,28 @@ function MainScreen({ navigation }) {
         </View>
         <View style={styles.BotBody}>
             <View style={styles.iconBody}>
-            <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Test')}>
                 <Image source={require('BearDiary/src/Shop.png')}
                     style={styles.image2}/>
                 <Text>SHOP</Text>
             </TouchableOpacity>
             </View>
             <View style={styles.iconBody}>
-            <TouchableOpacity onPress={() => navigation.navigate('Diary')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Test')}>
                 <Image source={require('BearDiary/src/Diary.png')}
                     style={styles.image2}/>
                 <Text>DIARY</Text>
             </TouchableOpacity>
             </View>
             <View style={styles.iconBody}>
-            <TouchableOpacity onPress={() => navigation.navigate('Map')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Test')}>
                 <Image source={require('BearDiary/src/Map.png')}
                     style={styles.image2}/>
                 <Text>MAP</Text>
             </TouchableOpacity>
             </View>
             <View style={styles.iconBody}>
-            <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Test')}>
                 <Image source={require('BearDiary/src/MyPage.png')}
                     style={styles.image2}/>
                 <Text>MyPage</Text>

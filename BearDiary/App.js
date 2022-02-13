@@ -16,6 +16,10 @@ import Login from './src/components/LoginScreen';
 import DBTest from './src/components/DBTestScreen';
 import SignUp from './src/components/SignUpScreen';
 import Main from './src/components/MainScreen';
+import Shop from './src/components/ShopScreen';
+import Diary from './src/components/DiaryScreen';
+import Map from './src/components/MapScreen';
+import MyPage from './src/components/MyPageScreen';
 
 class App extends React.Component {
 render() {
@@ -27,6 +31,10 @@ render() {
         <Stack.Screen name="DBTest" component={DBTest} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="Shop" component={Shop} />
+        <Stack.Screen name="Diary" component={Diary} />
+        <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="MyPage" component={MyPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
