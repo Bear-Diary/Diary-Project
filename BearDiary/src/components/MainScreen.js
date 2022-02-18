@@ -11,13 +11,13 @@ function MainScreen({ navigation }) {
             <View style={styles.TopCon0}/>
             <View style={styles.TopCon1}>
                 <Image
-                    source={require('BearDiary/src/Bear-B.png')}
+                    source={require('../images/Bear-B.png')}
                     style={styles.image}
                 />
             </View>
             <View style={styles.TopCon2}>
                 <Image
-                    source={require('BearDiary/src/Coin-state.png')}
+                    source={require('../images/Coin-state.png')}
                     style={styles.image3}
                     resizeMode="cover"
                 />
@@ -29,7 +29,7 @@ function MainScreen({ navigation }) {
                 style={styles.plusImage}
                 onPress={() => navigation.navigate('Test')}>
                 <Image
-                    source={require('BearDiary/src/Plus.png')}
+                    source={require('../images/Plus.png')}
                     style={styles.image}
                 />
             </TouchableOpacity>
@@ -38,28 +38,28 @@ function MainScreen({ navigation }) {
         <View style={styles.BotBody}>
             <View style={styles.iconBody}>
             <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
-                <Image source={require('BearDiary/src/Shop.png')}
+                <Image source={require('../images/Shop.png')}
                     style={styles.image2}/>
                 <Text>SHOP</Text>
             </TouchableOpacity>
             </View>
             <View style={styles.iconBody}>
             <TouchableOpacity onPress={() => navigation.navigate('Diary')}>
-                <Image source={require('BearDiary/src/Diary.png')}
+                <Image source={require('../images/Diary.png')}
                     style={styles.image2}/>
                 <Text>DIARY</Text>
             </TouchableOpacity>
             </View>
             <View style={styles.iconBody}>
             <TouchableOpacity onPress={() => navigation.navigate('Map')}>
-                <Image source={require('BearDiary/src/Map.png')}
+                <Image source={require('../images/Map.png')}
                     style={styles.image2}/>
                 <Text>MAP</Text>
             </TouchableOpacity>
             </View>
             <View style={styles.iconBody}>
             <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
-                <Image source={require('BearDiary/src/MyPage.png')}
+                <Image source={require('../images/MyPage.png')}
                     style={styles.image2}/>
                 <Text>MyPage</Text>
             </TouchableOpacity>
