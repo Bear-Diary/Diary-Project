@@ -3,6 +3,8 @@ import React, {useState, createRef} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import firestore from '@react-native-firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {
   StyleSheet,
   Button,
@@ -27,7 +29,6 @@ function LoginScreen({ navigation }) {
   async function login() {
     try{
         const data = await ref.get();
-        //console.log(data._docs+"!");
         setUsers(data._docs.map(doc => ({ ...doc.data(), id: doc.id })));
         var isUser = false;
         var pw="";
@@ -45,13 +46,20 @@ function LoginScreen({ navigation }) {
                 Alert.alert("비밀번호가 일치하지 않습니다.");
             }
             else {
+
                 Alert.alert("로그인 성공");
+                AsyncStorage.setItem(
+                'userData',
+                JSON.stringify({
+                 // token: token,
+                  userId: userId
+                })
+              );
             }
         }
     } catch (err) {
         console.log(err);
     }
-
   }
 
   return (
