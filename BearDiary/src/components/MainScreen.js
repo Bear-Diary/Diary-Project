@@ -27,7 +27,7 @@ function MainScreen({ navigation }) {
             <View style={styles.MidCon}>
             <TouchableOpacity
                 style={styles.plusImage}
-                onPress={() => navigation.navigate('Test')}>
+                onPress={() => navigation.navigate('PlusCha')}>
                 <Image
                     source={require('../images/Plus.png')}
                     style={styles.image}
