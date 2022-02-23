@@ -18,21 +18,29 @@ import {
   ScrollView,
 } from 'react-native';
 
-async function ttest()
-{
-    userData = await AsyncStorage.getItem('userData');
-    setUserData(userData);
-}
 
 function HomeScreen({ navigation }) {
   const [userData, setUserData] = useState('');
 
-  useEffect(() => {
-    console.log("모든 요소가 변경될때 마다 실행");
-    ttest();
-  }, []);
+  function logout()
+  {
+    AsyncStorage.removeItem('userData');
+    setUserData('');
+    navigation.navigate('Home');
+  }
 
-  if(userData === "") {
+  async function getUserData()
+  {
+      const userData = await AsyncStorage.getItem('userData');
+      setUserData(userData);
+  }
+  getUserData();
+/*
+  useEffect(() => {
+    getUserData();
+  }, []);
+  */
+  if(userData === "" || userData === null) {
     return (
         <View style={styles.mainBody}>
           <Text style={styles.titleTextStyle}>Bear Diary</Text>
@@ -44,7 +52,7 @@ function HomeScreen({ navigation }) {
           </View>
           <Button
                   title="LOGIN"
-                  onPress={() => navigation.navigate('Login')} // Login로 화면 이동
+                  onPress={() => navigation.push('Login')} // Login로 화면 이동
           />
           <View style={styles.MarginStyle}>
           </View>
@@ -57,51 +65,23 @@ function HomeScreen({ navigation }) {
           </View>
           <View style={styles.MarginStyle}>
           </View>
-          <Button
-            title="Login TEST"
-            onPress={() => ttest()} // DBTest로 화면 이동
-          />
-          <Button
-            title="Go to Main"
-            onPress={() => navigation.navigate('Main')} // Details로 화면 이동
-          />
         </View>
       );
   }
   else {
   return (
-        <View style={styles.mainBody}>
+          <View style={styles.mainBody}>
           <Text style={styles.titleTextStyle}>Bear Diary</Text>
           <Button
-                 title="SIG UP" // 버튼 디자인 - 곰 인형 아이콘 등 추후 대체 예정
-                 onPress={() => navigation.navigate('SignUp')} // SignUp로 화면 이동
+                  title="LOGOUT"
+                  onPress={() => logout()} // 로그아웃
           />
-          <View style={styles.MarginStyle}>
-          </View>
-          <Button
-                  title="LOGIN"
-                  onPress={() => navigation.navigate('Login')} // Login로 화면 이동
-          />
-          <View style={styles.MarginStyle}>
-          </View>
-          <View style={styles.sideBar}>
-           <Button
-                   title="EXIT"
-                   onPress={() => navigation.navigate('Details')} // Details로 화면 이동
-                   style={{margin: 30}}
-           />
-          </View>
-          <View style={styles.MarginStyle}>
-          </View>
-          <Button
-            title="Login TEST"
-            onPress={() => ttest()} // DBTest로 화면 이동
-          />
-          <Button
-            title="Go to Main"
-            onPress={() => navigation.navigate('Main')} // Details로 화면 이동
-          />
-        </View>
+
+         <Button
+                 title="GO TO Main"
+                 onPress={() => navigation.navigate('Main')} // 메인 화면 이동
+         />
+         </View>
       );
   }
 }
