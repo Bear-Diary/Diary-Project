@@ -1,12 +1,59 @@
 //import * as React from 'react';
 import React, {useState, createRef} from 'react';
-import { StyleSheet, Button, View, Text, TextInput} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import firestore from '@react-native-firebase/firestore';
+import {
+  StyleSheet,
+  Button,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  Keyboard,
+  Modal,
+  ScrollView,
+  Alert
+} from 'react-native';
 
 function LoginScreen({ navigation }) {
-  const [userId, setUserId] = useState('')
-  const [userPw, setUserPw] = useState('')
+  const [userId, setUserId] = useState('');
+  const [userPw, setUserPw] = useState('');
+  const [users, setUsers] = useState();
+
+  const ref = firestore().collection('user');
+
+  async function login() {
+    try{
+        const data = await ref.get();
+        //console.log(data._docs+"!");
+        setUsers(data._docs.map(doc => ({ ...doc.data(), id: doc.id })));
+        var isUser = false;
+        var pw="";
+        for(var i=0; i<users.length; i++) {
+            if(users[i].userId === userId) {
+                isUser=true;
+                pw=users[i].userPw;
+            }
+        }
+        if(!isUser) {
+            Alert.alert("아이디가 존재하지 않습니다.");
+        }
+        else {
+            if(userPw !== pw) {
+                Alert.alert("비밀번호가 일치하지 않습니다.");
+            }
+            else {
+                Alert.alert("로그인 성공");
+            }
+        }
+    } catch (err) {
+        console.log(err);
+    }
+
+  }
+
   return (
      <View style={styles.mainBody}>
       <Text style={styles.loginTextStyle}>LOGIN</Text>
@@ -23,7 +70,7 @@ function LoginScreen({ navigation }) {
       <View style={styles.SectionStyle}>
       <TextInput
           style = {styles.inputStyle}
-          onChangeText={(userPw) => setUserId(userPw)}
+          onChangeText={(userPw) => setUserPw(userPw)}
           placeholder="Enter Password" //PWD
       />
       </View>
@@ -34,7 +81,7 @@ function LoginScreen({ navigation }) {
       <Button
           title="Login"
           color='#000000'
-          onPress={() => navigation.navigate('Home')} // 로그인 후 화면으로 이동, 나중에 경로 수정 예정
+          onPress={() => login()} // 로그인 후 화면으로 이동, 나중에 경로 수정 예정
       />
     </View>
   );
