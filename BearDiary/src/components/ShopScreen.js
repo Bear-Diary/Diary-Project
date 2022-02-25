@@ -1,32 +1,24 @@
-import * as React from 'react';
+import React, { useState } from "react";
+import { StyleSheet, Button, View, Image, TouchableOpacity, ScrollView, Text, TextInput} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { styles } from './globalStyles';
-
-import {
-  StyleSheet,
-  Button,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  Keyboard,
-  Modal,
-  ScrollView,
-} from 'react-native';
+import firestore from '@react-native-firebase/firestore';
 
 function ShopScreen({ navigation }) {
+  const [count, setCount] = useState(0);
+
+  const ref = firestore().collection('diary');
+
   return (
     <View style={styles.mainBody}>
         <View style={styles.topBody}>
             <View style={styles.TopCon0}/>
             <View style={styles.TopCon1}>
-                <Image source={require('BearDiary/src/Bear-B.png')}
+                <Image source={require('../images/Bear-B.png')}
                     style={styles.image}/>
             </View>
             <View style={styles.TopCon2}>
-                <Image  source={require('BearDiary/src/Coin-state.png')}
+                <Image  source={require('../images/Coin-state.png')}
                     style={styles.image3}
                     resizeMode="cover"
                 />
@@ -35,38 +27,38 @@ function ShopScreen({ navigation }) {
         <View style={styles.midBody}>
             <View style={styles.midLBody}>
                 <View style={styles.imageBox}>
-                    <Image source={require('BearDiary/src/Bear-B.png')} style={styles.image4}/>
+                    <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image4}/></TouchableOpacity>
                 </View>
                 <View style={styles.imageBox}>
-                    <Image source={require('BearDiary/src/Bear-B.png')} style={styles.image4}/>
+                    <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image4}/></TouchableOpacity>
                 </View>
                 <View style={styles.imageBox}>
-                    <Image source={require('BearDiary/src/Bear-B.png')} style={styles.image4}/>
+                    <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image4}/></TouchableOpacity>
                 </View>
                 <View style={styles.imageBox}>
-                    <Image source={require('BearDiary/src/Bear-B.png')} style={styles.image4}/>
+                    <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image4}/></TouchableOpacity>
                 </View>
                 <View style={styles.imageBox}>
-                    <Image source={require('BearDiary/src/Bear-B.png')} style={styles.image4}/>
+                    <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image4}/></TouchableOpacity>
                 </View>
             </View>
             <View style={styles.midRBody}>
-                <Image source={require('BearDiary/src/Bear1_F.png')} style={styles.image5}/>
+                <Image source={require('../images/Bear1_F.png')} style={styles.image5}/>
             </View>
         </View>
         <View style={styles.botBody}>
             <ScrollView horizontal
                 showsHorizontalScrollIndicator={true}>
-                <Image source={require('BearDiary/src/Bear-B.png')} style={styles.image2}/>
-                <Image source={require('BearDiary/src/Bear-B.png')} style={styles.image2}/>
-                <Image source={require('BearDiary/src/Bear-B.png')} style={styles.image2}/>
-                <Image source={require('BearDiary/src/Bear-B.png')} style={styles.image2}/>
-                <Image source={require('BearDiary/src/Bear-B.png')} style={styles.image2}/>
-                <Image source={require('BearDiary/src/Bear-B.png')} style={styles.image2}/>
-                <Image source={require('BearDiary/src/Bear-B.png')} style={styles.image2}/>
-                <Image source={require('BearDiary/src/Bear-B.png')} style={styles.image2}/>
-                <Image source={require('BearDiary/src/Bear-B.png')} style={styles.image2}/>
-                <Image source={require('BearDiary/src/Bear-B.png')} style={styles.image2}/>
+                <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image2}/></TouchableOpacity>
+                <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image2}/></TouchableOpacity>
+                <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image2}/></TouchableOpacity>
+                <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image2}/></TouchableOpacity>
+                <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image2}/></TouchableOpacity>
+                <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image2}/></TouchableOpacity>
+                <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image2}/></TouchableOpacity>
+                <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image2}/></TouchableOpacity>
+                <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image2}/></TouchableOpacity>
+                <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image2}/></TouchableOpacity>
             </ScrollView>
         </View>
 

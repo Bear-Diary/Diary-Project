@@ -14,9 +14,12 @@ import {
   Keyboard,
   Modal,
   ScrollView,
+  Alert,
 } from 'react-native';
 
+
 function CharacterPlusScreen({ navigation }) {
+
   return (
     <View style={styles.mainBody}>
         <View style={styles.TopBody}>
@@ -25,20 +28,23 @@ function CharacterPlusScreen({ navigation }) {
         <View style={styles.midBody}>
             <View style={styles.midLBody}>
                 <View style={styles.imageBox}>
-                    <Image source={require('BearDiary/src/Bear1.png')}
-                    style={styles.image}/>
+                    <TouchableOpacity>
+                        <Image source={require('../images/Bear1.png')} style={styles.image}/>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.imageBox}>
-                    <Image source={require('BearDiary/src/Bear2.png')}
-                    style={styles.image}/>
+                    <TouchableOpacity>
+                        <Image source={require('../images/Bear2.png')} style={styles.image}/>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.imageBox}>
-                    <Image source={require('BearDiary/src/Bear3.png')}
-                    style={styles.image}/>
+                    <TouchableOpacity>
+                        <Image source={require('../images/Bear3.png')} style={styles.image}/>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.midRBody}>
-                <Image source={require('BearDiary/src/Bear1_F.png')}
+                <Image source={require('../images/Bear1_F.png')}
                 style={styles.image2}/>
             </View>
         </View>
@@ -52,6 +58,8 @@ function CharacterPlusScreen({ navigation }) {
     </View>
   );
 }
+
+
 
 export default CharacterPlusScreen;
 
