@@ -1,7 +1,9 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 //import { Button, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   StyleSheet,
@@ -16,42 +18,72 @@ import {
   ScrollView,
 } from 'react-native';
 
-function HomeScreen({ navigation }) {
 
+function HomeScreen({ navigation }) {
+  const [userData, setUserData] = useState('');
+
+  function logout()
+  {
+    AsyncStorage.removeItem('userData');
+    setUserData('');
+    navigation.navigate('Home');
+  }
+
+  async function getUserData()
+  {
+      const userData = await AsyncStorage.getItem('userData');
+      setUserData(userData);
+  }
+  getUserData();
+/*
+  useEffect(() => {
+    getUserData();
+  }, []);
+  */
+  if(userData === "" || userData === null) {
+    return (
+        <View style={styles.mainBody}>
+          <Text style={styles.titleTextStyle}>Bear Diary</Text>
+          <Button
+                 title="SIGN UP" // 버튼 디자인 - 곰 인형 아이콘 등 추후 대체 예정
+                 onPress={() => navigation.navigate('SignUp')} // SignUp로 화면 이동
+          />
+          <View style={styles.MarginStyle}>
+          </View>
+          <Button
+                  title="LOGIN"
+                  onPress={() => navigation.push('Login')} // Login로 화면 이동
+          />
+          <View style={styles.MarginStyle}>
+          </View>
+          <View style={styles.sideBar}>
+           <Button
+                   title="EXIT"
+                   onPress={() => navigation.navigate('Details')} // Details로 화면 이동
+                   style={{margin: 30}}
+           />
+          </View>
+          <View style={styles.MarginStyle}>
+          </View>
+        </View>
+      );
+  }
+  else {
   return (
-    <View style={styles.mainBody}>
-      <Text style={styles.titleTextStyle}>Bear Diary</Text>
-      <Button
-             title="SIGN UP" // 버튼 디자인 - 곰 인형 아이콘 등 추후 대체 예정
-             onPress={() => navigation.navigate('SignUp')} // SignUp로 화면 이동
-      />
-      <View style={styles.MarginStyle}>
-      </View>
-      <Button
-              title="LOGIN"
-              onPress={() => navigation.navigate('Login')} // Login로 화면 이동
-      />
-      <View style={styles.MarginStyle}>
-      </View>
-      <View style={styles.sideBar}>
-       <Button
-               title="EXIT"
-               onPress={() => navigation.navigate('Details')} // Details로 화면 이동
-               style={{margin: 30}}
-       />
-      </View>
-      <View style={styles.MarginStyle}>
-      </View>
-      <Button
-        title="Go to DBTest"
-        onPress={() => navigation.navigate('DBTest')} // DBTest로 화면 이동
-      />
-      <Button
-        title="Go to Main"
-        onPress={() => navigation.navigate('Main')} // Details로 화면 이동
-      />
-    </View>
-  );
+          <View style={styles.mainBody}>
+          <Text style={styles.titleTextStyle}>Bear Diary</Text>
+          <Button
+                  title="LOGOUT"
+                  onPress={() => logout()} // 로그아웃
+          />
+
+         <Button
+                 title="GO TO Main"
+                 onPress={() => navigation.navigate('Main')} // 메인 화면 이동
+         />
+         </View>
+      );
+  }
 }
 
 export default HomeScreen;
