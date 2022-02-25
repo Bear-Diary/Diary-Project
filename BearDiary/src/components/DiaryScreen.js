@@ -39,7 +39,7 @@ function DiaryScreen({ navigation }) {
                 <View style={styles.MidCon}>
                     <TouchableOpacity
                         style={styles.plusImage}
-                        onPress={() => navigation.navigate('PlusCha')}>
+                        onPress={() => navigation.navigate('PlusDiary')}>
                     <Image
                         source={require('../images/Plus.png')}
                         style={styles.image}/>
