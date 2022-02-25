@@ -21,6 +21,7 @@ import Shop from './src/components/ShopScreen';
 import Diary from './src/components/DiaryScreen';
 import Map from './src/components/MapScreen';
 import MyPage from './src/components/MyPageScreen';
+import PlusCha from './src/components/CharacterPlusScreen';
 
 class App extends React.Component {
 render() {
@@ -37,6 +38,7 @@ render() {
         <Stack.Screen name="Diary" component={Diary} />
         <Stack.Screen name="Map" component={Map} />
         <Stack.Screen name="MyPage" component={MyPage} />
+        <Stack.Screen name="PlusCha" component={PlusCha} />
       </Stack.Navigator>
     </NavigationContainer>
   );
