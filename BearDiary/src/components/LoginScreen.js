@@ -3,6 +3,8 @@ import React, {useState, createRef} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import firestore from '@react-native-firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {
   StyleSheet,
   Button,
@@ -20,15 +22,15 @@ import {
 function LoginScreen({ navigation }) {
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
-  const [users, setUsers] = useState();
 
   const ref = firestore().collection('user');
 
   async function login() {
     try{
         const data = await ref.get();
-        //console.log(data._docs+"!");
-        setUsers(data._docs.map(doc => ({ ...doc.data(), id: doc.id })));
+        const userData = await AsyncStorage.getItem('userData');
+        //setUsers(data._docs.map(doc => ({ ...doc.data(), id: doc.id })));
+        const users = data._docs.map(doc => ({ ...doc.data(), id: doc.id }));
         var isUser = false;
         var pw="";
         for(var i=0; i<users.length; i++) {
@@ -46,12 +48,19 @@ function LoginScreen({ navigation }) {
             }
             else {
                 Alert.alert("로그인 성공");
+                AsyncStorage.setItem(
+                'userData',
+                JSON.stringify({
+                 // token: token,
+                  userId: userId
+                })
+              ).then(navigation.push('Home'));
+              //navigation.navigate('Home');
             }
         }
     } catch (err) {
-        console.log(err);
+        console.log(err+"!");
     }
-
   }
 
   return (
@@ -72,11 +81,12 @@ function LoginScreen({ navigation }) {
           style = {styles.inputStyle}
           onChangeText={(userPw) => setUserPw(userPw)}
           placeholder="Enter Password" //PWD
+          secureTextEntry={true}
       />
       </View>
       <Text
           style={styles.joinTextStyle}
-          onPress={() => navigation.navigate('Home')} // 회원가입 화면으로 이동, 나중에 경로 수정 예정
+          onPress={() => navigation.push('SignUp')} // 회원가입 화면으로 이동, 나중에 경로 수정 예정
       >회원가입</Text>
       <Button
           title="Login"
