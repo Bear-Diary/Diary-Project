@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 
 function HomeScreen({ navigation }) {
+
   return (
     <View style={styles.mainBody}>
       <Text style={styles.titleTextStyle}>Bear Diary</Text>

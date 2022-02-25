@@ -23,13 +23,13 @@ function DiaryScreen({ navigation }) {
                 <View style={styles.TopCon0}/>
                 <View style={styles.TopCon1}>
                     <Image
-                        source={require('BearDiary/src/Bear-B.png')}
+                        source={require('../images/Bear-B.png')}
                         style={styles.image}
                     />
                 </View>
                 <View style={styles.TopCon2}>
                     <Image
-                        source={require('BearDiary/src/Coin-state.png')}
+                        source={require('../images/Coin-state.png')}
                         style={styles.image3}
                         resizeMode="cover"
                     />
@@ -41,7 +41,7 @@ function DiaryScreen({ navigation }) {
                         style={styles.plusImage}
                         onPress={() => navigation.navigate('PlusCha')}>
                     <Image
-                        source={require('BearDiary/src/Plus.png')}
+                        source={require('../images/Plus.png')}
                         style={styles.image}/>
                     </TouchableOpacity>
                 </View>
