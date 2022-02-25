@@ -58,7 +58,7 @@ function MainScreen({ navigation }) {
             </TouchableOpacity>
             </View>
             <View style={styles.iconBody}>
-            <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
+            <TouchableOpacity onPress={() => navigation.navigate('MP')}>
                 <Image source={require('../images/MyPage.png')}
                     style={styles.image2}/>
                 <Text>MyPage</Text>

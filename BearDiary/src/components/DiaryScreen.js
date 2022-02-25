@@ -23,7 +23,7 @@ function DiaryScreen({ navigation }) {
                 <View style={styles.TopCon0}/>
                 <View style={styles.TopCon1}>
                     <Image
-                        source={require('../images//Bear-B.png')}
+                        source={require('../images/Bear-B.png')}
                         style={styles.image}
                     />
                 </View>

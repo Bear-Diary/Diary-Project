@@ -5,9 +5,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import firestore from '@react-native-firebase/firestore';
 
 function ShopScreen({ navigation }) {
-  const [count, setCount] = useState(0);
-
   const ref = firestore().collection('diary');
+
+  const [toggle, setToggle] = useState(false);
+
+  function handleOnClick(){
+    setToggle(!toggle);
+  }
 
   return (
     <View style={styles.mainBody}>
@@ -24,22 +28,23 @@ function ShopScreen({ navigation }) {
                 />
             </View>
         </View>
+
         <View style={styles.midBody}>
             <View style={styles.midLBody}>
                 <View style={styles.imageBox}>
-                    <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image4}/></TouchableOpacity>
+                    <TouchableOpacity><Image source={require('../images/TOP.png')} style={styles.image4}/></TouchableOpacity>
                 </View>
                 <View style={styles.imageBox}>
-                    <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image4}/></TouchableOpacity>
+                    <TouchableOpacity><Image source={require('../images/BOTTOM.png')} style={styles.image4}/></TouchableOpacity>
                 </View>
                 <View style={styles.imageBox}>
-                    <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image4}/></TouchableOpacity>
+                    <TouchableOpacity><Image source={require('../images/ONE.png')} style={styles.image4}/></TouchableOpacity>
                 </View>
                 <View style={styles.imageBox}>
-                    <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image4}/></TouchableOpacity>
+                    <TouchableOpacity><Image source={require('../images/SHOE.png')} style={styles.image4}/></TouchableOpacity>
                 </View>
                 <View style={styles.imageBox}>
-                    <TouchableOpacity><Image source={require('../images/Bear-B.png')} style={styles.image4}/></TouchableOpacity>
+                    <TouchableOpacity><Image source={require('../images/ACC.png')} style={styles.image4}/></TouchableOpacity>
                 </View>
             </View>
             <View style={styles.midRBody}>

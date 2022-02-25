@@ -11,6 +11,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 
+import isLogin from './src/components/isLogin';
 import Home from './src/components/HomeScreen';
 import Login from './src/components/LoginScreen';
 import DBTest from './src/components/DBTestScreen';
@@ -22,12 +23,19 @@ import Map from './src/components/MapScreen';
 import MyPage from './src/components/MyPageScreen';
 import PlusCha from './src/components/CharacterPlusScreen';
 import PlusDiary from './src/components/DiaryPlusScreen';
+import MP from './src/components/MyPageTest';
 
 class App extends React.Component {
+constructor(props) {
+    super(props);
+    this.state = {clicked: true};
+  }
+
 render() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="isLogin" component={isLogin} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="DBTest" component={DBTest} />
@@ -39,6 +47,7 @@ render() {
         <Stack.Screen name="MyPage" component={MyPage} />
         <Stack.Screen name="PlusCha" component={PlusCha} />
         <Stack.Screen name="PlusDiary" component={PlusDiary} />
+        <Stack.Screen name="MP" component={MP} />
       </Stack.Navigator>
     </NavigationContainer>
   );
