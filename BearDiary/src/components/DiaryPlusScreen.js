@@ -2,11 +2,17 @@ import * as React from 'react';
 import {useState, createRef} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+//import firebase from 'react-native-firebase';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
+//import ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from "react-native-image-picker"
+import * as Progress from 'react-native-progress';
 import Styled from 'styled-components/native';
-//import RNPickerSelect from '@react-native-picker/picker';
+import SelectDropdown from 'react-native-select-dropdown'
 import {
   StyleSheet,
+  SafeAreaView,
   Button,
   View,
   Text,
@@ -35,6 +41,14 @@ function DiaryScreen({ navigation }) {
   const [bPicId, setBPicId] = useState('');
   const [bContent, setBContent] = useState('');
 
+  const countries = ["Egypt", "Canada", "Australia", "Ireland"]
+  const weather = ["sunny", "cloudy", "windy", "rainy", "snowy"]
+  const mood = ["perfect", "good", "okay(soso)", "bad", "worst"]
+
+  const [image, setImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [transferred, setTransferred] = useState(0);
+
   const ref = firestore().collection('diary').doc('diary_board');
 
   async function registerDiary() {
@@ -60,11 +74,63 @@ function DiaryScreen({ navigation }) {
      }
   }
 
+  const selectImage = () => {
+    const options = {
+      maxWidth: 2000,
+      maxHeight: 2000,
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
+    ImagePicker.showImagePicker(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = { uri: response.uri };
+        console.log(source);
+        setImage(source);
+      }
+    });
+  };
+
+  const uploadImage = async () => {
+    const { uri } = image;
+    const filename = uri.substring(uri.lastIndexOf('/') + 1);
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+    setUploading(true);
+    setTransferred(0);
+    const task = storage()
+      .ref(filename)
+      .putFile(uploadUri);
+    // set progress state
+    task.on('state_changed', snapshot => {
+      setTransferred(
+        Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000
+      );
+    });
+    try {
+      await task;
+    } catch (e) {
+      console.error(e);
+    }
+    setUploading(false);
+    Alert.alert(
+      'Photo uploaded!',
+      'Your photo has been uploaded to Firebase Cloud Storage!'
+    );
+    setImage(null);
+  };
+
   return (
    <Container>
     <BGImageContainer
       source={require('../images/DiaryBackground.png')}
-      resizeMode="stretch"
+//      resizeMode="stretch"
     >
         <View style={styles.TopBody} >
         <View style={styles.TopCon0}/>
@@ -83,15 +149,74 @@ function DiaryScreen({ navigation }) {
             </View>
         </View>
         <View style={styles.MidBody}>
-            <View style={styles.TitleStyle}>
-                <TextInput
-                     style = {styles.TitleInputStyle}
-                     onChangeText={(bTitle) => setBTitle(bTitle)}
-                     placeholder="제목 입력"
-                     autoCapitalize="none"
-                     returnKeyType="next"
-                />
+            <View style={styles.TopBody} >
+                <View style={styles.TitleStyle}>
+                    <TextInput
+                         style = {styles.TitleInputStyle}
+                         onChangeText={(bTitle) => setBTitle(bTitle)}
+                         placeholder="제목 입력"
+                         autoCapitalize="none"
+                         returnKeyType="next"
+                    />
+                </View>
+
+                <View style={styles.optionStyle}>
+                    <SelectDropdown
+                        data={weather}
+                        buttonStyle={{width: 70, height: 30, marginRight: 100}}
+                        buttonTextStyle={{fontSize: 12}}
+                        rowTextStyle={{fontSize: 12}}
+                        onSelect={(selectedItem, index) => {
+                            console.log(selectedItem, index)
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                            return selectedItem
+                        }}
+                        rowTextForSelection={(item, index) => {
+                            return item
+                        }}
+                    />
+                </View>
+
+                <View style={styles.optionStyle}>
+                    <SelectDropdown
+                        data={mood}
+                        buttonStyle={{width: 70, height: 30}}
+                        buttonTextStyle={{fontSize: 12}}
+                        rowTextStyle={{fontSize: 12}}
+                        onSelect={(selectedItem, index) => {
+                            console.log(selectedItem, index)
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                            return selectedItem
+                        }}
+                        rowTextForSelection={(item, index) => {
+                            return item
+                        }}
+                    />
+                </View>
+
             </View>
+
+            <SafeAreaView style={styles.container}>
+                  <TouchableOpacity style={styles.selectButton} onPress={selectImage}>
+                    <Text style={styles.buttonText}>Pick an image</Text>
+                  </TouchableOpacity>
+                  <View style={styles.imageContainer}>
+                    {image !== null ? (
+                      <Image source={{ uri: image.uri }} style={styles.imageBox} />
+                    ) : null}
+                    {uploading ? (
+                      <View style={styles.progressBarContainer}>
+                        <Progress.Bar progress={transferred} width={300} />
+                      </View>
+                    ) : (
+                      <TouchableOpacity style={styles.uploadButton} onPress={uploadImage}>
+                        <Text style={styles.buttonText}>Upload image (test 전용)</Text>
+                      </TouchableOpacity>
+                    )}
+                  </View>
+            </SafeAreaView>
 
             <View style={styles.ContentStyle}>
                 <TextInput
@@ -161,7 +286,7 @@ const styles = StyleSheet.create({
   TitleStyle: {
     flexDirection: 'column',
     height: 30,
-    marginTop: 22,
+    marginTop: 10,
     marginLeft: -70,
     marginRight: 30,
     margin: 10,
@@ -191,4 +316,50 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 0,
   },
+
+
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 30
+  },
+  selectButton: {
+    borderRadius: 5,
+    width: 90,
+    height: 40,
+    backgroundColor: '#8ac6d1',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  uploadButton: {
+    borderRadius: 5,
+    width: 90,
+    height: 40,
+    backgroundColor: '#ffb6b9',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: 'bold'
+  },
+  imageContainer: {
+    marginTop: 30,
+    marginBottom: 50,
+    alignItems: 'center'
+  },
+  progressBarContainer: {
+    marginTop: 20
+  },
+  imageBox: {
+    width: 300,
+    height: 300
+  },
+
+  optionStyle: {
+    width: 10,
+    height: 30
+  }
 });
