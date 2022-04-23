@@ -1,10 +1,34 @@
 //import * as React from 'react';
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import { StyleSheet, Button, View, Image, TouchableOpacity, Text, TextInput} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import firestore from '@react-native-firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function MainScreen({ navigation }) {
+  //const ref = firestore().collection('account');
+
+  const [userCoin, setUserCoin] = useState(0);
+  const [userData, setUserData] = useState('');
+
+    async function getUserData()
+    {
+        const userData = await AsyncStorage.getItem('userData');
+        setUserData(userData);
+        const userInfo = JSON.parse(userData);
+        setUserCoin(userInfo.userCoin);
+    }
+  getUserData();
+/*
+  async function addTodo() {
+      await ref.add({
+        id: "test",
+        password: "",
+        test:123
+      });
+   }*/
   return (
     <View style={styles.mainBody}>
         <View style={styles.TopBody}>
@@ -21,6 +45,7 @@ function MainScreen({ navigation }) {
                     style={styles.image3}
                     resizeMode="cover"
                 />
+                <Text style={styles.coinState}>{userCoin}</Text>
             </View>
         </View>
         <View style={styles.MidBody}>
@@ -113,6 +138,12 @@ const styles = StyleSheet.create({
     image3: {
     width: 160,
     height: 40,
+  },
+  coinState : {
+    position: 'absolute',
+    top: '15%',
+    left: '20%',
+    color: 'black'
   },
   iconBody: {
     flex: 1,

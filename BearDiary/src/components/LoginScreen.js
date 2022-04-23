@@ -33,10 +33,12 @@ function LoginScreen({ navigation }) {
         const users = data._docs.map(doc => ({ ...doc.data(), id: doc.id }));
         var isUser = false;
         var pw="";
+        var userCoin=-1;
         for(var i=0; i<users.length; i++) {
             if(users[i].userId === userId) {
                 isUser=true;
                 pw=users[i].userPw;
+                userCoin=users[i].userCoin;
             }
         }
         if(!isUser) {
@@ -49,11 +51,7 @@ function LoginScreen({ navigation }) {
             else {
                 Alert.alert("로그인 성공");
                 AsyncStorage.setItem(
-                'userData',
-                JSON.stringify({
-                 // token: token,
-                  userId: userId
-                })
+                'userData', JSON.stringify({'userId': userId, 'userCoin': userCoin})
               ).then(navigation.push('Home'));
               //navigation.navigate('Home');
             }

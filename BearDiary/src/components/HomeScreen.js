@@ -21,7 +21,7 @@ import {
 
 function HomeScreen({ navigation }) {
   const [userData, setUserData] = useState('');
-
+  const [userId, setUserId] = useState('');
   function logout()
   {
     AsyncStorage.removeItem('userData');
@@ -33,6 +33,8 @@ function HomeScreen({ navigation }) {
   {
       const userData = await AsyncStorage.getItem('userData');
       setUserData(userData);
+      const userInfo = JSON.parse(userData);
+      if(userInfo) setUserId(userInfo.userId);
   }
   getUserData();
 /*
@@ -72,6 +74,7 @@ function HomeScreen({ navigation }) {
   return (
           <View style={styles.mainBody}>
           <Text style={styles.titleTextStyle}>Bear Diary</Text>
+          <Text>'{userId}'님 반갑습니다.</Text>
           <Button
                   title="LOGOUT"
                   onPress={() => logout()} // 로그아웃
